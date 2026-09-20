@@ -62,7 +62,7 @@ function New-Dotlink {
       }
       catch {
         Copy-Item -LiteralPath $resolved -Destination $Path
-        Write-Host "  copy    $Path (symlink and hardlink unavailable, edits will not sync back)"
+        Write-Host "  copy    $Path (enable Developer Mode and re-run to link it instead)"
         return
       }
     }
@@ -72,6 +72,14 @@ function New-Dotlink {
 
 Write-Host "dotfiles: $Repo"
 Write-Host ""
+
+if ([System.IO.Path]::GetPathRoot($Repo) -ne [System.IO.Path]::GetPathRoot($User)) {
+  Write-Host "note: the repo is on a different drive than Windows."
+  Write-Host "      folders become junctions automatically. Plain files need Developer Mode"
+  Write-Host "      (Settings > System > For developers) to become symlinks; without it they"
+  Write-Host "      are copied and will not sync back."
+  Write-Host ""
+}
 
 New-Dotlink -Path (Join-Path $Config "wezterm")                -Target (Join-Path $Repo "home/.config/wezterm")
 New-Dotlink -Path (Join-Path $env:LOCALAPPDATA "nvim")         -Target (Join-Path $Repo "home/.config/nvim")
@@ -119,7 +127,7 @@ if ($InstallApps) {
   Write-Host "  herdr:       powershell -ExecutionPolicy Bypass -c `"irm https://herdr.dev/install.ps1 | iex`""
   Write-Host "  claude code: powershell -ExecutionPolicy Bypass -c `"irm https://claude.ai/install.ps1 | iex`""
   Write-Host "  opencode:    see https://opencode.ai/docs/"
-  Write-Host "  scrapling:   powershell -ExecutionPolicy Bypass -File windows\setup-scrapling-mcp.ps1"
+  Write-Host "  scrapling:   powershell -ExecutionPolicy Bypass -File `"$Repo\windows\setup-scrapling-mcp.ps1`""
 }
 
 Write-Host "done."

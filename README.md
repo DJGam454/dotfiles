@@ -51,14 +51,21 @@ Re-run it after any change to `home.nix`, `configuration.nix`, or `flake.nix`.
 Prereqs: Windows 10/11, PowerShell 5.1+, Git for Windows, winget.
 
 ```powershell
-git clone https://github.com/DJGam454/dotfiles-private.git "$env:USERPROFILE\dotfiles"
-powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\dotfiles\windows\bootstrap.ps1" -InstallApps
+git clone https://github.com/DJGam454/dotfiles-private.git D:\dotfiles
+powershell -ExecutionPolicy Bypass -File D:\dotfiles\windows\bootstrap.ps1 -InstallApps
 ```
 
-Drop `-InstallApps` if you prefer to install apps yourself. The script moves any
-existing file aside to `<name>.backup-<timestamp>` before linking. No admin
-rights or Developer Mode are needed (junctions for folders, hardlinks for
-files).
+The repo can live on any drive, so on a machine with a big second disk use that
+(for example `D:\dotfiles`); the script finds the repo from its own path. Drop
+`-InstallApps` if you prefer to install apps yourself. The script moves any
+existing file aside to `<name>.backup-<timestamp>` before linking.
+
+Folders are linked with junctions, which work across drives and need no admin
+rights. The plain files (`settings.json`, `AGENTS.md`/`CLAUDE.md`,
+`opencode.json`) are linked with symlinks, which also cross drives when
+Developer Mode is on (Settings > System > For developers > Developer Mode).
+Without Developer Mode and on another drive those files are copied instead and
+will not auto-sync back; the script tells you when it copies.
 
 Then install the tools that winget does not carry:
 
@@ -69,7 +76,7 @@ powershell -ExecutionPolicy Bypass -c "irm https://claude.ai/install.ps1 | iex"
 ```
 
 opencode: see https://opencode.ai/docs/
-scrapling-mcp: `powershell -ExecutionPolicy Bypass -File windows\setup-scrapling-mcp.ps1`
+scrapling-mcp: `powershell -ExecutionPolicy Bypass -File D:\dotfiles\windows\setup-scrapling-mcp.ps1`
 
 Restart the terminal, then log in to each tool (`gh auth login`,
 `opencode auth login`, Claude Code) since credentials are not stored in the repo.
@@ -89,7 +96,8 @@ Restart the terminal, then log in to each tool (`gh auth login`,
 | `home/.pi/agent` | `%USERPROFILE%\.pi\agent` |
 
 Because the links point back into the repo, editing any of these files edits the
-repo. Commit changes from `%USERPROFILE%\dotfiles` to keep both machines in sync.
+repo. Commit changes from the clone (for example `D:\dotfiles`) to keep both
+machines in sync.
 
 ## opencode
 
