@@ -90,6 +90,33 @@ irm https://claude.ai/install.ps1 | iex
 Restart the terminal, then log in to each tool (`gh auth login`,
 `opencode auth login`, Claude Code) since credentials are not stored in the repo.
 
+### If `uv`, `curl.exe`, or `powershell` are "not recognized"
+
+That means the standard Windows directories are missing from `PATH` in that
+session, not that anything failed to install. Repair it in the current window:
+
+```powershell
+$env:PATH = "$env:SystemRoot\System32;$env:SystemRoot;$env:SystemRoot\System32\WindowsPowerShell\v1.0;$env:USERPROFILE\.local\bin;$env:LOCALAPPDATA\Microsoft\WinGet\Links;$env:PATH"
+```
+
+If `uv` is still missing, install it directly (it lands in `%USERPROFILE%\.local\bin`):
+
+```powershell
+irm https://astral.sh/uv/install.ps1 | iex
+```
+
+To make the missing directories stick for future terminals (no admin required):
+
+```powershell
+$dirs = @("$env:USERPROFILE\.local\bin", "$env:LOCALAPPDATA\Microsoft\WinGet\Links", "$env:SystemRoot\System32", "$env:SystemRoot")
+$userPath = [Environment]::GetEnvironmentVariable('Path','User')
+foreach ($d in $dirs) { if (($userPath -split ';') -notcontains $d) { $userPath = ($userPath.TrimEnd(';') + ';' + $d).TrimStart(';') } }
+[Environment]::SetEnvironmentVariable('Path', $userPath, 'User')
+```
+
+Then close and reopen the terminal. `curl.exe` ships inside Windows
+(`C:\Windows\System32`) and herdr's installer needs it.
+
 ### What gets linked where
 
 | Repo path | Windows path |
