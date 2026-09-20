@@ -55,6 +55,14 @@ git clone https://github.com/DJGam454/dotfiles-private.git D:\dotfiles
 powershell -ExecutionPolicy Bypass -File D:\dotfiles\windows\bootstrap.ps1 -InstallApps
 ```
 
+If `powershell` is not found in your session (some setups have the Windows
+PowerShell folder missing from `PATH`), run the script directly instead:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+& D:\dotfiles\windows\bootstrap.ps1 -InstallApps
+```
+
 The repo can live on any drive, so on a machine with a big second disk use that
 (for example `D:\dotfiles`); the script finds the repo from its own path. Drop
 `-InstallApps` if you prefer to install apps yourself. The script moves any
@@ -67,16 +75,17 @@ Developer Mode is on (Settings > System > For developers > Developer Mode).
 Without Developer Mode and on another drive those files are copied instead and
 will not auto-sync back; the script tells you when it copies.
 
-Then install the tools that winget does not carry:
+`-InstallApps` installs Git, WezTerm, Neovim, Node LTS, Python 3.12, uv,
+ripgrep, fd, fzf, jq, lazygit, opencode (`SST.opencode`) and Hack Nerd Font via
+winget. Then install the tools winget does not carry:
 
 ```powershell
 uv tool install graphifyy
-powershell -ExecutionPolicy Bypass -c "irm https://herdr.dev/install.ps1 | iex"
-powershell -ExecutionPolicy Bypass -c "irm https://claude.ai/install.ps1 | iex"
+uv tool update-shell
+irm https://herdr.dev/install.ps1 | iex
+irm https://claude.ai/install.ps1 | iex
+& D:\dotfiles\windows\setup-scrapling-mcp.ps1
 ```
-
-opencode: see https://opencode.ai/docs/
-scrapling-mcp: `powershell -ExecutionPolicy Bypass -File D:\dotfiles\windows\setup-scrapling-mcp.ps1`
 
 Restart the terminal, then log in to each tool (`gh auth login`,
 `opencode auth login`, Claude Code) since credentials are not stored in the repo.

@@ -113,6 +113,7 @@ if ($InstallApps) {
     "junegunn.fzf",
     "jqlang.jq",
     "JesseDuffield.lazygit",
+    "SST.opencode",
     "DEVCOM.HackNerdFont"
   )
 
@@ -123,11 +124,10 @@ if ($InstallApps) {
 
   Write-Host ""
   Write-Host "Still to install by hand:"
-  Write-Host "  graphify:    uv tool install graphifyy"
-  Write-Host "  herdr:       powershell -ExecutionPolicy Bypass -c `"irm https://herdr.dev/install.ps1 | iex`""
-  Write-Host "  claude code: powershell -ExecutionPolicy Bypass -c `"irm https://claude.ai/install.ps1 | iex`""
-  Write-Host "  opencode:    see https://opencode.ai/docs/"
-  Write-Host "  scrapling:   powershell -ExecutionPolicy Bypass -File `"$Repo\windows\setup-scrapling-mcp.ps1`""
+  Write-Host "  graphify:    uv tool install graphifyy; uv tool update-shell"
+  Write-Host "  herdr:       irm https://herdr.dev/install.ps1 | iex"
+  Write-Host "  claude code: irm https://claude.ai/install.ps1 | iex"
+  Write-Host "  scrapling:   & `"$Repo\windows\setup-scrapling-mcp.ps1`""
 }
 
 Write-Host "done."
