@@ -1,5 +1,6 @@
 # global agent instructions
 
+- Global agent skills are installed in `~/.claude/skills/` and `~/.agents/skills/` (both symlinked to the same directory). opencode auto-loads both locations. Invoke a skill when the task matches its description; never call one you haven't read.
 - Never use the em dash "—". Use plain dash "-" instead
 - When writing commit messages, NEVER auto-add your agent name as co-author
 - Never manually modify CHANGELOG.md files or any files that are marked as auto-generated
