@@ -17,7 +17,7 @@ Personal dotfiles for macOS and Windows. Forked from
 | `configuration.nix` | macOS system defaults, Homebrew packages |
 | `home.nix` | user packages and the symlinks from `~` into `home/` |
 | `rebuild.sh` | macOS: link `~/.dotfiles` and run `nix-darwin switch` |
-| `home/AGENTS.md` | global agent instructions (Claude, Codex, opencode) |
+| `home/AGENTS.md` | global agent instructions (Claude, Codex, opencode, Freebuff) |
 | `home/skills/` | global agent skills |
 | `home/.claude/settings.json` | Claude Code settings and git guardrail hook |
 | `home/.config/nvim/` | Neovim + lazy.nvim |
@@ -45,6 +45,11 @@ sudo nix run nix-darwin -- switch --flake ~/.dotfiles#mac
 ```
 
 Re-run it after any change to `home.nix`, `configuration.nix`, or `flake.nix`.
+
+`home/AGENTS.md` is symlinked into every agent that reads global instructions:
+`~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.config/opencode/AGENTS.md`, and
+`~/.AGENTS.md` (Freebuff). The Freebuff desktop app has no Homebrew cask, so
+install it by hand from <https://freebuff.com>.
 
 ## Windows
 
@@ -87,7 +92,9 @@ irm https://claude.ai/install.ps1 | iex
 ```
 
 Restart the terminal, then log in to each tool (`gh auth login`,
-`opencode auth login`, Claude Code) since credentials are not stored in the repo.
+`opencode auth login`, Claude Code, Freebuff) since credentials are not stored in
+the repo. The Freebuff desktop app has no Homebrew cask, so install it by hand
+from <https://freebuff.com>.
 
 ### If `uv`, `curl.exe`, or `powershell` are "not recognized"
 
@@ -127,7 +134,7 @@ Then close and reopen the terminal. `curl.exe` ships inside Windows
 | `windows/opencode.json` | `%USERPROFILE%\.config\opencode\opencode.json` |
 | `home/.claude/settings.json` | `%USERPROFILE%\.claude\settings.json` |
 | `home/skills` | `%USERPROFILE%\.claude\skills` and `%USERPROFILE%\.agents\skills` |
-| `home/AGENTS.md` | `%USERPROFILE%\.config\opencode\AGENTS.md`, `%USERPROFILE%\.claude\CLAUDE.md`, `%USERPROFILE%\.codex\AGENTS.md` |
+| `home/AGENTS.md` | `%USERPROFILE%\.config\opencode\AGENTS.md`, `%USERPROFILE%\.claude\CLAUDE.md`, `%USERPROFILE%\.codex\AGENTS.md`, `%USERPROFILE%\.AGENTS.md` |
 | `home/.pi/agent` | `%USERPROFILE%\.pi\agent` |
 
 Because the links point back into the repo, editing any of these files edits the

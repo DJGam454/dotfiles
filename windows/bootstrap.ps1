@@ -92,6 +92,7 @@ New-Dotlink -Path (Join-Path $User ".claude\CLAUDE.md")        -Target (Join-Pat
 New-Dotlink -Path (Join-Path $User ".claude\skills")           -Target (Join-Path $Repo "home/skills")
 New-Dotlink -Path (Join-Path $User ".agents\skills")           -Target (Join-Path $Repo "home/skills")
 New-Dotlink -Path (Join-Path $User ".codex\AGENTS.md")         -Target (Join-Path $Repo "home/AGENTS.md")
+New-Dotlink -Path (Join-Path $User ".AGENTS.md")               -Target (Join-Path $Repo "home/AGENTS.md")
 New-Dotlink -Path (Join-Path $User ".pi\agent")                -Target (Join-Path $Repo "home/.pi/agent")
 
 Write-Host ""
@@ -124,6 +125,7 @@ if ($InstallApps) {
 
   Write-Host ""
   Write-Host "Still to install by hand:"
+  Write-Host "  freebuff:    install the desktop app from https://freebuff.com"
   Write-Host "  herdr:       irm https://herdr.dev/install.ps1 | iex"
   Write-Host "  claude code: irm https://claude.ai/install.ps1 | iex"
   Write-Host "  scrapling:   & `"$Repo\windows\setup-scrapling-mcp.ps1`""
