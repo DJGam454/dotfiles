@@ -95,6 +95,10 @@ in
   home.file.".config/opencode/AGENTS.md".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
 
+  # Freebuff loads user knowledge from home-level .AGENTS.md / .CLAUDE.md.
+  home.file.".AGENTS.md".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/AGENTS.md";
+
   home.file.".config/opencode/opencode.json".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/opencode/opencode.json";
 
