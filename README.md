@@ -23,7 +23,7 @@ Personal dotfiles for macOS and Windows. Forked from
 | `home/.config/nvim/` | Neovim + lazy.nvim |
 | `home/.config/wezterm/` | WezTerm |
 | `home/.config/herdr/` | herdr config |
-| `home/.config/opencode/` | opencode MCP servers and the graphify skill |
+| `home/.config/opencode/` | opencode MCP servers and skills |
 | `home/.pi/agent/` | pi agent config |
 | `windows/bootstrap.ps1` | Windows setup: links everything into place |
 | `windows/opencode.json` | Windows variant of the opencode config |
@@ -80,7 +80,6 @@ ripgrep, fd, fzf, jq, lazygit, opencode (`SST.opencode`) and Hack Nerd Font via
 winget. Then install the tools winget does not carry:
 
 ```powershell
-uv tool install graphifyy
 uv tool update-shell
 irm https://herdr.dev/install.ps1 | iex
 irm https://claude.ai/install.ps1 | iex
@@ -148,9 +147,6 @@ Windows run `windows/setup-scrapling-mcp.ps1`, which creates it at
 `%USERPROFILE%\.config\opencode\venvs\scrapling-mcp` and installs the browsers.
 `windows/opencode.json` points there with `{env:USERPROFILE}`, so the two
 platforms get identical MCP servers from their own file.
-
-`graphify` is installed as a `uv` tool (`uv tool install graphifyy`) and its
-skill lives in `home/.config/opencode/skills/graphify`.
 
 ## Notes
 
